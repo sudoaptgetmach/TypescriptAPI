@@ -1,5 +1,5 @@
-import { IsInt, IsString } from 'class-validator';
-import { Type } from "class-transformer";
+import {IsInt, IsString} from 'class-validator';
+import {Type} from "class-transformer";
 
 export class UpdateMessageDto {
     @Type(() => Number)
