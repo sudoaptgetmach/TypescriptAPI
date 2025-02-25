@@ -1,11 +1,6 @@
-import {IsInt, IsString} from 'class-validator';
-import {Type} from "class-transformer";
+import {IsString} from 'class-validator';
 
 export class UpdateMessageDto {
-    @Type(() => Number)
-    @IsInt({ message: "O ID informado precisa ser um número inteiro." })
-    id: number;
-
     @IsString()
     name: string;
 

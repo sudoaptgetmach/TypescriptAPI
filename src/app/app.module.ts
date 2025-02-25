@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { RecadosModule } from '../recados/recados.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import {Module} from '@nestjs/common';
+import {AppController} from './app.controller';
+import {AppService} from './app.service';
+import {RecadosModule} from '../recados/recados.module';
+import {TypeOrmModule} from '@nestjs/typeorm';
 import {ConfigModule} from "@nestjs/config";
 
 @Module({

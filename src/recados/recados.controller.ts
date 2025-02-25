@@ -21,17 +21,17 @@ export class RecadosController {
 
     @Post('/create')
     createTask(@Body() createMessageDto: CreateMessageDto) {
-        return this.recadosService.createTask(createMessageDto);
+        return this.recadosService.createMessage(createMessageDto);
     }
 
-    @Put('/update/')
-    updateTask(@Body() updateTaskDto: UpdateMessageDto) {
-        return this.recadosService.updateTask(updateTaskDto);
+    @Put('/update/:id')
+    updateTask(@Param('id', ParseIntPipe) id: number, @Body() updateMessageDto: UpdateMessageDto) {
+        return this.recadosService.updateMessage(id, updateMessageDto);
     }
 
     @Delete('/delete/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
     deleteTask(@Param('id', ParseIntPipe) id: number) {
-        return this.recadosService.deleteTask(id);
+        return this.recadosService.deleteMessage(id);
     }
 }

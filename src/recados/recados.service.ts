@@ -33,7 +33,7 @@ export class RecadosService {
         return recados;
     }
 
-    async createTask(@Body() createMessageDto: CreateMessageDto) {
+    async createMessage(@Body() createMessageDto: CreateMessageDto) {
         const novoRecado = {
             ...createMessageDto,
             read: false,
@@ -44,14 +44,36 @@ export class RecadosService {
         return this.recadoRepository.save(recado);
     }
 
-    updateTask(@Body() updateTaskDto: UpdateMessageDto) {
-        return `Task ${updateTaskDto.id} updated successfully: ` +
-            `Name: ${updateTaskDto.name} ` +
-            `Description: ${updateTaskDto.description}`;
+    async updateMessage(@Param('id', ParseIntPipe) id: number, @Body() updateMessageDto: UpdateMessageDto) {
+        const updateMessage = {
+            id: id,
+            ...updateMessageDto,
+            updatedAt: new Date()
+        };
+
+        const recado = await this.recadoRepository.find({
+            where: {
+                id
+            }
+        });
+
+        if (!recado || recado.length === 0) {
+            throw new NotFoundException(`O recado de ID ${id} não foi encontrado.`);
+        }
+
+        return this.recadoRepository.save(updateMessage);
     }
 
-    deleteTask(@Param('id', ParseIntPipe) id: number) {
-        return `Task ${id} deleted successfully.`;
-    }
+    async deleteMessage(@Param('id', ParseIntPipe) id: number) {
+        const recado = await this.recadoRepository.find({
+            where: {
+                id
+            }
+        });
 
+        if (!recado) {
+            throw new NotFoundException(`O recado de ID ${id} não foi encontrado.`);
+        }
+        return this.recadoRepository.delete(id);
+    }
 }
