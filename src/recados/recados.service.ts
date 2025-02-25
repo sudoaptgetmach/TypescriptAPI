@@ -1,6 +1,7 @@
-import {Body, Injectable, Param, ParseIntPipe} from '@nestjs/common';
-import {CreateTaskDto} from "./dto/CreateTaskDto";
-import {UpdateTaskDto} from "./dto/UpdateTaskDto";
+import {Body, HttpException, Injectable, Param, ParseIntPipe} from '@nestjs/common';
+import {CreateMessageDto} from "./dto/CreateMessageDto";
+import {UpdateMessageDto} from "./dto/UpdateMessageDto";
+import {Recado} from './entities/recados.entity';
 
 @Injectable()
 export class RecadosService {
@@ -13,13 +14,15 @@ export class RecadosService {
         return 'Lista todos os recados.';
     }
 
-    createTask(@Body() createTaskDto: CreateTaskDto) {
-        return `Task ${createTaskDto.id} created successfully: ` +
-            `Name: ${createTaskDto.name} ` +
-            `Description: ${createTaskDto.description}`;
+    createTask(@Body() recado: Recado) {
+        try {
+            return new CreateMessageDto();
+        } catch (e) {
+            return HttpException.getDescriptionFrom(e);
+        }
     }
 
-    updateTask(@Body() updateTaskDto: UpdateTaskDto) {
+    updateTask(@Body() updateTaskDto: UpdateMessageDto) {
         return `Task ${updateTaskDto.id} updated successfully: ` +
             `Name: ${updateTaskDto.name} ` +
             `Description: ${updateTaskDto.description}`;

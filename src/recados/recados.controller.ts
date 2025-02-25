@@ -1,7 +1,7 @@
 import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put} from '@nestjs/common';
-import {CreateTaskDto} from "./dto/CreateTaskDto";
-import {UpdateTaskDto} from "./dto/UpdateTaskDto";
+import {UpdateMessageDto} from "./dto/UpdateMessageDto";
 import {RecadosService} from "./recados.service";
+import {Recado} from './entities/recados.entity';
 
 @Controller('recados')
 export class RecadosController {
@@ -20,12 +20,12 @@ export class RecadosController {
     }
 
     @Post('/create')
-    createTask(@Body() createTaskDto: CreateTaskDto) {
-        return this.recadosService.createTask(createTaskDto);
+    createTask(@Body() recado: Recado) {
+        return this.recadosService.createTask(recado);
     }
 
     @Put('/update/')
-    updateTask(@Body() updateTaskDto: UpdateTaskDto) {
+    updateTask(@Body() updateTaskDto: UpdateMessageDto) {
         return this.recadosService.updateTask(updateTaskDto);
     }
 
