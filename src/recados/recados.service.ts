@@ -8,17 +8,18 @@ import {Repository} from "typeorm";
 @Injectable()
 export class RecadosService {
 
-    constructor (
-       @InjectRepository(Recado)
-       private readonly recadoRepository: Repository<Recado>
-    ) {}
+    constructor(
+        @InjectRepository(Recado)
+        private readonly recadoRepository: Repository<Recado>
+    ) {
+    }
 
     async listOne(@Param('id', ParseIntPipe) id: number) {
         const recado = await this.recadoRepository.findOne({
             where: {
                 id,
             }
-        })
+        });
 
         if (recado) return recado;
 
@@ -45,27 +46,26 @@ export class RecadosService {
     }
 
     async updateMessage(@Param('id', ParseIntPipe) id: number, @Body() updateMessageDto: UpdateMessageDto) {
-        const updateMessage = {
-            id: id,
-            ...updateMessageDto,
-            updatedAt: new Date()
-        };
-
-        const recado = await this.recadoRepository.find({
-            where: {
-                id
-            }
+        const recado = await this.recadoRepository.findOne({
+            where: {id}
         });
 
-        if (!recado || recado.length === 0) {
+        if (!recado) {
             throw new NotFoundException(`O recado de ID ${id} não foi encontrado.`);
         }
 
-        return this.recadoRepository.save(updateMessage);
+        await this.recadoRepository.update(id, {
+            ...updateMessageDto,
+            updatedAt: new Date()
+        });
+
+        return this.recadoRepository.findOne({
+            where: {id}
+        });
     }
 
     async deleteMessage(@Param('id', ParseIntPipe) id: number) {
-        const recado = await this.recadoRepository.find({
+        const recado = await this.recadoRepository.findOne({
             where: {
                 id
             }

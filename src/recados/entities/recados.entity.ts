@@ -11,23 +11,23 @@ export class Recado {
     id: number;
 
     @IsString()
-    @Column({ type: 'varchar', length: 255})
+    @Column({type: 'varchar', length: 255})
     name: string;
 
     @IsString()
-    @Column({ type: 'varchar', length: 255})
+    @Column({type: 'varchar', length: 255})
     description: string;
 
     @IsString()
-    @Column({ type: 'varchar', length: 255})
+    @Column({type: 'varchar', length: 255})
     sender: string;
 
     @IsString()
-    @Column({ type: 'varchar', length: 255})
+    @Column({type: 'varchar', length: 255})
     receiver: string;
 
     @IsBoolean()
-    @Column({ default: false , type: 'boolean'})
+    @Column({default: false, type: 'boolean'})
     read: boolean;
 
     @IsDate()
