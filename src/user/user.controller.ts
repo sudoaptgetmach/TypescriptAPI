@@ -1,10 +1,24 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Query} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    HttpStatus,
+    Param,
+    ParseIntPipe,
+    Patch,
+    Post,
+    Query, UsePipes
+} from '@nestjs/common';
 import {UserService} from './user.service';
 import {CreateUserDto} from './dto/create-user.dto';
 import {UpdateUserDto} from './dto/update-user.dto';
 import {PaginationDto} from "../common/dto/pagination.dto";
+import {ParseIntIdPipe} from "../common/pipes/parse-int-id.pipe";
 
 @Controller('user')
+@UsePipes(ParseIntIdPipe)
 export class UserController {
     constructor(private readonly userService: UserService) {
     }
@@ -20,18 +34,18 @@ export class UserController {
     }
 
     @Get('/find/:id')
-    findOne(@Param('id') id: string) {
+    findOne(@Param('id', ParseIntPipe) id: number) {
         return this.userService.findOne(+id);
     }
 
     @Patch('/update/:id')
-    update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
         return this.userService.update(+id, updateUserDto);
     }
 
     @HttpCode(HttpStatus.NO_CONTENT)
     @Delete('/delete/:id')
-    remove(@Param('id') id: string) {
+    remove(@Param('id') id: number) {
         return this.userService.remove(+id);
     }
 }

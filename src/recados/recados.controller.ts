@@ -1,28 +1,18 @@
-import {
-    Body,
-    Controller,
-    Delete,
-    Get,
-    HttpCode,
-    HttpStatus,
-    Param,
-    ParseIntPipe,
-    Post,
-    Put,
-    Query
-} from '@nestjs/common';
+import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UsePipes} from '@nestjs/common';
 import {UpdateMessageDto} from "./dto/update-message.dto";
 import {RecadosService} from "./recados.service";
 import {CreateMessageDto} from "./dto/create-message.dto";
 import {PaginationDto} from "../common/dto/pagination.dto";
+import {ParseIntIdPipe} from "../common/pipes/parse-int-id.pipe";
 
 @Controller('recados')
+@UsePipes(ParseIntIdPipe)
 export class RecadosController {
     constructor(private readonly recadosService: RecadosService) {
     }
 
     @Get('/list/:id')
-    listOne(@Param('id', ParseIntPipe) id: number) {
+    listOne(@Param('id') id: number) {
         return this.recadosService.listOne(id);
     }
 
@@ -38,13 +28,13 @@ export class RecadosController {
     }
 
     @Put('/update/:id')
-    updateTask(@Param('id', ParseIntPipe) id: number, @Body() updateMessageDto: UpdateMessageDto) {
+    updateTask(@Param('id') id: number, @Body() updateMessageDto: UpdateMessageDto) {
         return this.recadosService.updateMessage(id, updateMessageDto);
     }
 
     @Delete('/delete/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
-    deleteTask(@Param('id', ParseIntPipe) id: number) {
+    deleteTask(@Param('id') id: number) {
         return this.recadosService.deleteMessage(id);
     }
 }
