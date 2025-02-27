@@ -9,7 +9,7 @@ export class ListMessageDto {
         this.name = recado.name;
         this.description = recado.description;
         this.read = recado.read;
-        this.data = new Date(recado.data);
+        this.data = recado.createdAt?.toDateString();
         this.sender = new ListUserDto(recado.sender);
         this.receiver = new ListUserDto(recado.receiver);
     }
@@ -25,11 +25,11 @@ export class ListMessageDto {
     description: string;
 
     @ValidateNested()
-    @Type(() => ListUserDto) // Usando ListUserDto
+    @Type(() => ListUserDto)
     sender: ListUserDto;
 
     @ValidateNested()
-    @Type(() => ListUserDto) // Usando ListUserDto
+    @Type(() => ListUserDto)
     receiver: ListUserDto;
 
     @IsBoolean()
@@ -37,7 +37,7 @@ export class ListMessageDto {
 
     @IsDate()
     @Type(() => Date)
-    data: Date;
+    data: string | undefined;
 
     @IsDate()
     @Type(() => Date)

@@ -7,6 +7,7 @@ import {User} from "../user/entities/user.entity";
 import {UpdateMessageDto} from "./dto/update-message.dto";
 import {ListMessageDto} from "./dto/list-message.dto";
 import {ListUserDto} from "../user/dto/list-user.dto";
+import {PaginationDto} from "../common/dto/pagination.dto";
 
 @Injectable()
 export class RecadosService {
@@ -29,16 +30,21 @@ export class RecadosService {
             ...new ListMessageDto(recado),
             sender: new ListUserDto(recado.sender),
             receiver: new ListUserDto(recado.receiver),
-            createdAt: recado.createdAt,
-            updatedAt: recado.updatedAt,
         };
 
         throw new NotFoundException("Recado não encontrado.");
     }
 
-    async listAll() {
+    async listAll(paginationDto?: PaginationDto) {
+        const { limit = 10, offset = 0 } = paginationDto || {};
+
         const recados = await this.recadoRepository.find({
+            take: limit,
+            skip: offset,
             relations: ['sender', 'receiver'],
+            order: {
+                id: 'asc',
+            },
         });
 
         if (!recados || recados.length === 0) {
@@ -48,9 +54,7 @@ export class RecadosService {
         return recados.map(recado => ({
             ...new ListMessageDto(recado),
             sender: new ListUserDto(recado.sender),
-            receiver: new ListUserDto(recado.receiver),
-            createdAt: recado.createdAt,
-            updatedAt: recado.updatedAt,
+            receiver: new ListUserDto(recado.receiver)
         }));
     }
 

@@ -22,10 +22,10 @@ export class User {
     @Column({type: 'varchar', length: 100})
     password: string;
 
-    @OneToMany(() => Recado, (recado) => recado.sender)
+    @OneToMany(() => Recado, (recado) => recado.sender, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     messagesSentList: Recado[];
 
-    @OneToMany(() => Recado, (recado) => recado.receiver)
+    @OneToMany(() => Recado, (recado) => recado.receiver, { onDelete: 'CASCADE', onUpdate: 'CASCADE' })
     messagesReceivedList: Recado[];
 
     @OneToMany(() => User, user => user.friendList)

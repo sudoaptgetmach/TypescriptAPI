@@ -1,7 +1,20 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put} from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Delete,
+    Get,
+    HttpCode,
+    HttpStatus,
+    Param,
+    ParseIntPipe,
+    Post,
+    Put,
+    Query
+} from '@nestjs/common';
 import {UpdateMessageDto} from "./dto/update-message.dto";
 import {RecadosService} from "./recados.service";
 import {CreateMessageDto} from "./dto/create-message.dto";
+import {PaginationDto} from "../common/dto/pagination.dto";
 
 @Controller('recados')
 export class RecadosController {
@@ -15,8 +28,8 @@ export class RecadosController {
 
     @Get('/list')
     @HttpCode(HttpStatus.OK)
-    listAll() {
-        return this.recadosService.listAll();
+    listAll(@Query() paginationDto: PaginationDto) {
+        return this.recadosService.listAll(paginationDto);
     }
 
     @Post('/create')

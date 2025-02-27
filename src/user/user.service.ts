@@ -12,6 +12,7 @@ import {InjectRepository} from "@nestjs/typeorm";
 import {User} from "./entities/user.entity";
 import {Repository} from "typeorm";
 import {ListUserDto} from "./dto/list-user.dto";
+import {PaginationDto} from "../common/dto/pagination.dto";
 
 @Injectable()
 export class UserService {
@@ -43,16 +44,24 @@ export class UserService {
         }
     }
 
-    async findAll() {
-        const users = await this.userRepository.find();
+    async findAll(paginationDto?: PaginationDto) {
+        const { limit = 10, offset = 0 } = paginationDto || {};
+
+        const users = await this.userRepository.find({
+            take: limit,
+            skip: offset,
+            order: {
+                id: 'asc',
+            },
+        });
         if (!users || users.length === 0) {
             throw new NotFoundException("Nenhum usuário foi encontrado.");
         }
 
         return users.map(user => ({
             ...new ListUserDto(user),
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt
+            createdAt: user.createdAt?.toDateString(),
+            updatedAt: user.updatedAt?.toDateString()
         }));
     }
 
@@ -65,8 +74,8 @@ export class UserService {
 
         if (user) return {
             ...new ListUserDto(user),
-            createdAt: user.createdAt,
-            updatedAt: user.updatedAt
+            createdAt: user.createdAt?.toDateString(),
+            updatedAt: user.updatedAt?.toDateString()
         };
 
         throw new NotFoundException("Usuário não encontrado.");

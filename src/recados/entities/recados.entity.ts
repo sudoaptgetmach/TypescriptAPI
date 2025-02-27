@@ -1,6 +1,14 @@
 import {IsBoolean, IsDate, IsInt, IsString} from "class-validator";
 import {Type} from "class-transformer";
-import {Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
+import {
+    Column,
+    CreateDateColumn,
+    Entity,
+    JoinColumn,
+    ManyToOne,
+    PrimaryGeneratedColumn,
+    UpdateDateColumn
+} from "typeorm";
 import {User} from "../../user/entities/user.entity";
 
 @Entity()
@@ -19,10 +27,12 @@ export class Recado {
     @Column({type: 'varchar', length: 255})
     description: string;
 
-    @ManyToOne(() => User, (user) => user.messagesSentList, { eager: true })
+    @ManyToOne(() => User, (user) => user.messagesSentList, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @JoinColumn({ name: 'sender'})
     sender: User;
 
-    @ManyToOne(() => User, (user) => user.messagesReceivedList, { eager: true })
+    @ManyToOne(() => User, (user) => user.messagesReceivedList, { eager: true, onDelete: 'CASCADE', onUpdate: 'CASCADE' })
+    @JoinColumn({ name: 'receiver'})
     receiver: User;
 
     @IsBoolean()

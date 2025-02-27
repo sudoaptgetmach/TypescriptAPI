@@ -7,8 +7,6 @@ export class ListUserDto {
         this.id = user.id;
         this.name = user.name;
         this.email = user.email;
-        this.createdAt = user.createdAt;
-        this.updatedAt = user.updatedAt;
     }
 
     @IsNumber()
@@ -21,8 +19,8 @@ export class ListUserDto {
     email: string;
 
     @CreateDateColumn()
-    createdAt?: Date;
+    createdAt?: string | undefined;
 
     @UpdateDateColumn()
-    updatedAt?: Date;
+    updatedAt?: string | undefined;
 }
