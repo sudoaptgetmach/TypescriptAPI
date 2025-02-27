@@ -4,17 +4,20 @@ import {
     HttpException,
     Injectable,
     InternalServerErrorException,
-    NotFoundException
+    NotFoundException,
+    UseInterceptors
 } from '@nestjs/common';
-import {CreateUserDto} from './dto/create-user.dto';
-import {UpdateUserDto} from './dto/update-user.dto';
-import {InjectRepository} from "@nestjs/typeorm";
-import {User} from "./entities/user.entity";
-import {Repository} from "typeorm";
-import {ListUserDto} from "./dto/list-user.dto";
-import {PaginationDto} from "../common/dto/pagination.dto";
+import { InjectRepository } from "@nestjs/typeorm";
+import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
+import { Repository } from "typeorm";
+import { PaginationDto } from "../common/dto/pagination.dto";
+import { CreateUserDto } from './dto/create-user.dto';
+import { ListUserDto } from "./dto/list-user.dto";
+import { UpdateUserDto } from './dto/update-user.dto';
+import { User } from "./entities/user.entity";
 
 @Injectable()
+@UseInterceptors(ErrorHandlingInterceptor)
 export class UserService {
 
     constructor(

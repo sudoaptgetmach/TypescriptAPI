@@ -1,7 +1,7 @@
-import {Type} from "class-transformer";
-import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
-import {IsEmail, IsInt, IsString} from "class-validator";
-import {Recado} from "../../recados/entities/recados.entity";
+import { Type } from "class-transformer";
+import { IsEmail, IsInt, IsString } from "class-validator";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Recado } from "../../recados/entities/recados.entity";
 
 @Entity()
 export class User {

@@ -1,9 +1,9 @@
-import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UsePipes} from '@nestjs/common';
-import {UpdateMessageDto} from "./dto/update-message.dto";
-import {RecadosService} from "./recados.service";
-import {CreateMessageDto} from "./dto/create-message.dto";
-import {PaginationDto} from "../common/dto/pagination.dto";
-import {ParseIntIdPipe} from "../common/pipes/parse-int-id.pipe";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put, Query, UsePipes } from '@nestjs/common';
+import { PaginationDto } from "../common/dto/pagination.dto";
+import { ParseIntIdPipe } from "../common/pipes/parse-int-id.pipe";
+import { CreateMessageDto } from "./dto/create-message.dto";
+import { UpdateMessageDto } from "./dto/update-message.dto";
+import { RecadosService } from "./recados.service";
 
 @Controller('recados')
 @UsePipes(ParseIntIdPipe)

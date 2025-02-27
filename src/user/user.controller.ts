@@ -11,11 +11,11 @@ import {
     Post,
     Query, UsePipes
 } from '@nestjs/common';
-import {UserService} from './user.service';
-import {CreateUserDto} from './dto/create-user.dto';
-import {UpdateUserDto} from './dto/update-user.dto';
-import {PaginationDto} from "../common/dto/pagination.dto";
-import {ParseIntIdPipe} from "../common/pipes/parse-int-id.pipe";
+import { PaginationDto } from "../common/dto/pagination.dto";
+import { ParseIntIdPipe } from "../common/pipes/parse-int-id.pipe";
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
 
 @Controller('user')
 @UsePipes(ParseIntIdPipe)

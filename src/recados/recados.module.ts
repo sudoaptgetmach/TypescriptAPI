@@ -1,9 +1,9 @@
-import {Module} from '@nestjs/common';
-import {Recado} from './entities/recados.entity';
-import {RecadosService} from './recados.service';
-import {RecadosController} from './recados.controller';
-import {UserModule} from '../user/user.module';
-import {TypeOrmModule} from "@nestjs/typeorm";
+import { Module } from '@nestjs/common';
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { UserModule } from '../user/user.module';
+import { Recado } from './entities/recados.entity';
+import { RecadosController } from './recados.controller';
+import { RecadosService } from './recados.service';
 
 @Module({
     imports: [TypeOrmModule.forFeature([Recado]), UserModule],

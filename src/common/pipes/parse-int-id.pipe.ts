@@ -1,4 +1,4 @@
-import {ArgumentMetadata, BadRequestException, PipeTransform} from "@nestjs/common";
+import { ArgumentMetadata, BadRequestException, PipeTransform } from "@nestjs/common";
 
 export class ParseIntIdPipe implements PipeTransform {
     transform(value: any, metadata: ArgumentMetadata): any {

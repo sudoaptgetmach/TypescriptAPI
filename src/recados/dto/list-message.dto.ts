@@ -1,7 +1,7 @@
-import {Type} from "class-transformer";
-import {IsBoolean, IsDate, IsInt, IsString, ValidateNested} from "class-validator";
-import {Recado} from "../entities/recados.entity";
-import {ListUserDto} from "../../user/dto/list-user.dto";
+import { Type } from "class-transformer";
+import { IsBoolean, IsDate, IsInt, IsString, ValidateNested } from "class-validator";
+import { ListUserDto } from "../../user/dto/list-user.dto";
+import { Recado } from "../entities/recados.entity";
 
 export class ListMessageDto {
     constructor(recado: Recado) {

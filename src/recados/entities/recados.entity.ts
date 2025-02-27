@@ -1,5 +1,5 @@
-import {IsBoolean, IsDate, IsInt, IsString} from "class-validator";
-import {Type} from "class-transformer";
+import { Type } from "class-transformer";
+import { IsBoolean, IsDate, IsInt, IsString } from "class-validator";
 import {
     Column,
     CreateDateColumn,
@@ -9,7 +9,7 @@ import {
     PrimaryGeneratedColumn,
     UpdateDateColumn
 } from "typeorm";
-import {User} from "../../user/entities/user.entity";
+import { User } from "../../user/entities/user.entity";
 
 @Entity()
 export class Recado {

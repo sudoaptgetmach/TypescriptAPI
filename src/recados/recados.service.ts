@@ -1,15 +1,17 @@
-import {Body, Injectable, NotFoundException, Param, ParseIntPipe} from '@nestjs/common';
-import {CreateMessageDto} from "./dto/create-message.dto";
-import {Recado} from './entities/recados.entity';
-import {InjectRepository} from "@nestjs/typeorm";
-import {Repository} from "typeorm";
-import {User} from "../user/entities/user.entity";
-import {UpdateMessageDto} from "./dto/update-message.dto";
-import {ListMessageDto} from "./dto/list-message.dto";
-import {ListUserDto} from "../user/dto/list-user.dto";
-import {PaginationDto} from "../common/dto/pagination.dto";
+import { Body, Injectable, NotFoundException, Param, ParseIntPipe, UseInterceptors } from '@nestjs/common';
+import { InjectRepository } from "@nestjs/typeorm";
+import { ErrorHandlingInterceptor } from 'src/common/interceptors/error-handling.interceptor';
+import { Repository } from "typeorm";
+import { PaginationDto } from "../common/dto/pagination.dto";
+import { ListUserDto } from "../user/dto/list-user.dto";
+import { User } from "../user/entities/user.entity";
+import { CreateMessageDto } from "./dto/create-message.dto";
+import { ListMessageDto } from "./dto/list-message.dto";
+import { UpdateMessageDto } from "./dto/update-message.dto";
+import { Recado } from './entities/recados.entity';
 
 @Injectable()
+@UseInterceptors(ErrorHandlingInterceptor)
 export class RecadosService {
 
     constructor(
