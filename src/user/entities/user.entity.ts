@@ -1,6 +1,7 @@
 import {Type} from "class-transformer";
 import {Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm";
 import {IsEmail, IsInt, IsString} from "class-validator";
+import {Recado} from "../../recados/entities/recados.entity";
 
 @Entity()
 export class User {
@@ -20,6 +21,12 @@ export class User {
     @IsString()
     @Column({type: 'varchar', length: 100})
     password: string;
+
+    @OneToMany(() => Recado, (recado) => recado.sender)
+    messagesSentList: Recado[];
+
+    @OneToMany(() => Recado, (recado) => recado.receiver)
+    messagesReceivedList: Recado[];
 
     @OneToMany(() => User, user => user.friendList)
     @Type(() => User)

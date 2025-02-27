@@ -1,7 +1,7 @@
 import {Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put} from '@nestjs/common';
-import {UpdateMessageDto} from "./dto/UpdateMessageDto";
+import {UpdateMessageDto} from "./dto/update-message.dto";
 import {RecadosService} from "./recados.service";
-import {CreateMessageDto} from "./dto/CreateMessageDto";
+import {CreateMessageDto} from "./dto/create-message.dto";
 
 @Controller('recados')
 export class RecadosController {

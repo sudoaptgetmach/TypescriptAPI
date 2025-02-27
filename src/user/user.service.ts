@@ -74,11 +74,7 @@ export class UserService {
 
     async update(id: number, updateUserDto: UpdateUserDto) {
         try {
-            const filteredDto = Object.fromEntries(
-                Object.entries(updateUserDto).filter(([_, v]) => v !== undefined && v !== null && v !== "")
-            );
-
-            if (Object.keys(filteredDto).length === 0) {
+            if (Object.values(updateUserDto).every(value => value === undefined)) {
                 throw new BadRequestException('A requisição não pode estar vazia.');
             }
 
@@ -88,8 +84,12 @@ export class UserService {
                 throw new NotFoundException(`Usuário com o ID ${id} não foi encontrado.`);
             }
 
-            filteredDto.updatedAt = new Date();
-            await this.userRepository.update(id, filteredDto);
+            const updatedData = {
+                ...updateUserDto,
+                updatedAt: new Date()
+            }
+
+            await this.userRepository.update(id, updatedData);
 
             const updatedUser = await this.userRepository.findOne({where: {id}});
 
